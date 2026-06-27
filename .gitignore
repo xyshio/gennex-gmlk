@@ -15,8 +15,8 @@ next-env.d.ts
 Thumbs.db
 
 # Env
-.env.local
-.env*.local
+# .env.local
+# .env*.local
 
 # Data backups (snapshots are committed manually when meaningful)
 data/family.*.bak.json
