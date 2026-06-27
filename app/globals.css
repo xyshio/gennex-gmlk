@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Theme tokens — light defaults at :root, dark overrides via
+ * `[data-theme="dark"]`. Tailwind reads these as RGB triplets via
+ * tailwind.config.ts so utility classes like `bg-ink-panel` flip
+ * automatically when the attribute changes.
+ *
+ * Inline `<script>` in app/layout.tsx applies the saved choice BEFORE
+ * React hydrates so the first paint doesn't flash light → dark.
+ */
+:root {
+  --ink-bg: 248 250 252;       /* slate-50 */
+  --ink-panel: 255 255 255;
+  --ink-border: 226 232 240;   /* slate-200 */
+  --ink-text: 15 23 42;        /* slate-900 */
+  --ink-muted: 100 116 139;    /* slate-500 */
+  --ink-accent: 139 92 246;    /* violet-500 */
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --ink-bg: 15 23 42;          /* slate-900 */
+  --ink-panel: 30 41 59;       /* slate-800 */
+  --ink-border: 51 65 85;      /* slate-700 */
+  --ink-text: 241 245 249;     /* slate-100 */
+  --ink-muted: 148 163 184;    /* slate-400 */
+  --ink-accent: 167 139 250;   /* violet-400 — slightly lighter on dark */
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: rgb(var(--ink-bg));
+  color: rgb(var(--ink-text));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* react-flow dark-mode polish — the library ships only light tokens
+ * inline-styled; nudge the obvious ones (canvas background, dots,
+ * minimap, controls) so the tree view doesn't punch a bright hole
+ * through dark theme. The pane background is set via xyflow's own
+ * CSS custom property `--xy-background-color-default`; we override
+ * it (plus a direct background-color fallback in case the property
+ * isn't picked up). */
+:root[data-theme="dark"] .react-flow {
+  --xy-background-color-default: rgb(var(--ink-bg));
+  --xy-background-pattern-color-default: rgb(var(--ink-border));
+  background-color: rgb(var(--ink-bg));
+}
+:root[data-theme="dark"] .react-flow__controls button {
+  background-color: rgb(var(--ink-panel));
+  color: rgb(var(--ink-text));
+  border-color: rgb(var(--ink-border));
+}
+:root[data-theme="dark"] .react-flow__controls button:hover {
+  background-color: rgb(var(--ink-bg));
+}
+:root[data-theme="dark"] .react-flow__minimap {
+  background-color: rgb(var(--ink-panel));
+}
+:root[data-theme="dark"] .react-flow__attribution {
+  display: none;
+}

@@ -1,0 +1,23 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Build artifacts
+.tsbuildinfo
+next-env.d.ts
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Env
+.env.local
+.env*.local
+
+# Data backups (snapshots are committed manually when meaningful)
+data/family.*.bak.json
+data/photos/*.tmp
